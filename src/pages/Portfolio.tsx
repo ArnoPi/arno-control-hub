@@ -1,7 +1,7 @@
-
 import { ArrowRight, Code, Smartphone, Globe, Github, Linkedin, Mail, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { ContactForm } from "@/components/ContactForm";
 
 const Portfolio = () => {
   const projects = [
@@ -202,16 +202,14 @@ const Portfolio = () => {
 
       {/* Contact Section */}
       <section id="contact" className="py-20 px-4">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">Laten we samenwerken</h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Heb je een idee voor een website of app? Ik help je graag om het werkelijkheid te maken.
-          </p>
-          <Button size="lg" className="group">
-            <Mail className="mr-2 h-4 w-4" />
-            Stuur een bericht
-            <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+        <div className="container mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6">Laten we samenwerken</h2>
+            <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+              Heb je een idee voor een website of app? Vul het formulier in en ik neem binnen 24 uur contact met je op.
+            </p>
+          </div>
+          <ContactForm />
         </div>
       </section>
 
