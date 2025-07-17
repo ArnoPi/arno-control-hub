@@ -232,7 +232,7 @@ const Tickets = () => {
                     <Badge className={statusColors[ticket.status]}>
                       {ticket.status === 'in-progress' ? 'Bezig' : 
                        ticket.status === 'resolved' ? 'Opgelost' : 
-                       ticket.status === 'closed' ? 'Gesloten' : 'Open'}
+                       ticket.status === 'open' ? 'Open' : 'Gesloten'}
                     </Badge>
                   </div>
                 </div>
