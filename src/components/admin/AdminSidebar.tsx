@@ -1,19 +1,21 @@
 
-import { useState } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
 import {
-  LayoutDashboard,
-  Ticket,
+  Calendar,
+  Home,
+  Inbox,
+  Search,
+  Settings,
   Users,
+  TicketIcon as Ticket,
   BarChart3,
   MessageSquare,
-  Settings,
   FolderOpen,
   Bell,
-  Search,
   Activity,
-  Zap
-} from 'lucide-react';
+  FileText
+} from "lucide-react";
+import { NavLink, useLocation } from "react-router-dom";
+
 import {
   Sidebar,
   SidebarContent,
@@ -24,108 +26,98 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
   useSidebar,
-} from '@/components/ui/sidebar';
-import { Badge } from '@/components/ui/badge';
+} from "@/components/ui/sidebar";
 
-const mainItems = [
-  { title: 'Dashboard', url: '/', icon: LayoutDashboard },
-  { title: 'Tickets', url: '/tickets', icon: Ticket, badge: '12' },
-  { title: 'Gebruikers', url: '/users', icon: Users },
-  { title: 'Projecten', url: '/projects', icon: FolderOpen },
-  { title: 'Chat & Support', url: '/chat', icon: MessageSquare, badge: '3' },
-];
-
-const monitoringItems = [
-  { title: 'Statistieken', url: '/stats', icon: BarChart3 },
-  { title: 'Server Status', url: '/status', icon: Activity },
-  { title: 'Logs', url: '/logs', icon: Zap },
-  { title: 'Meldingen', url: '/notifications', icon: Bell },
-];
-
-const systemItems = [
-  { title: 'Instellingen', url: '/settings', icon: Settings },
+const navigation = [
+  {
+    title: "Dashboard",
+    url: "/admin",
+    icon: Home,
+  },
+  {
+    title: "Tickets",
+    url: "/admin/tickets",
+    icon: Ticket,
+  },
+  {
+    title: "Gebruikers",
+    url: "/admin/users", 
+    icon: Users,
+  },
+  {
+    title: "Projecten",
+    url: "/admin/projects",
+    icon: FolderOpen,
+  },
+  {
+    title: "Chat & Support",
+    url: "/admin/chat",
+    icon: MessageSquare,
+  },
+  {
+    title: "Statistieken",
+    url: "/admin/stats",
+    icon: BarChart3,
+  },
+  {
+    title: "Server Status",
+    url: "/admin/status",
+    icon: Activity,
+  },
+  {
+    title: "Logs",
+    url: "/admin/logs",
+    icon: FileText,
+  },
+  {
+    title: "Meldingen",
+    url: "/admin/notifications",
+    icon: Bell,
+  },
+  {
+    title: "Instellingen",
+    url: "/admin/settings",
+    icon: Settings,
+  },
 ];
 
 export function AdminSidebar() {
-  const { collapsed } = useSidebar();
+  const { state } = useSidebar();
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const isActive = (path: string) => {
-    if (path === '/') return currentPath === '/';
-    return currentPath.startsWith(path);
-  };
+  const isActive = (path: string) => currentPath === path;
+  const getNavClasses = (isActive: boolean) =>
+    isActive 
+      ? "bg-sidebar-accent text-sidebar-accent-foreground font-medium" 
+      : "hover:bg-sidebar-accent/50 text-sidebar-foreground";
 
-  const getNavCls = ({ isActive }: { isActive: boolean }) =>
-    `${isActive 
-      ? 'bg-gradient-to-r from-blue-500/20 to-purple-500/20 text-blue-400 border-r-2 border-blue-400' 
-      : 'hover:bg-slate-800/50 text-slate-300 hover:text-slate-100'
-    } transition-all duration-200`;
-
-  const renderMenuItems = (items: typeof mainItems) => (
-    <SidebarMenu>
-      {items.map((item) => (
-        <SidebarMenuItem key={item.title}>
-          <SidebarMenuButton asChild>
-            <NavLink to={item.url} className={getNavCls}>
-              <item.icon className="h-4 w-4" />
-              {!collapsed && (
-                <div className="flex items-center justify-between w-full">
-                  <span>{item.title}</span>
-                  {item.badge && (
-                    <Badge variant="secondary" className="bg-blue-500/20 text-blue-400 text-xs">
-                      {item.badge}
-                    </Badge>
-                  )}
-                </div>
-              )}
-            </NavLink>
-          </SidebarMenuButton>
-        </SidebarMenuItem>
-      ))}
-    </SidebarMenu>
-  );
+  const isCollapsed = state === "collapsed";
 
   return (
-    <Sidebar className={`${collapsed ? 'w-16' : 'w-64'} border-r border-slate-800 bg-slate-900/50 backdrop-blur-lg`} collapsible>
-      <SidebarContent className="p-2">
-        {/* Logo */}
-        <div className="flex items-center gap-2 p-4 mb-4">
-          <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">A</span>
-          </div>
-          {!collapsed && (
-            <div>
-              <h1 className="text-lg font-bold text-white">Arnotjuh.be</h1>
-              <p className="text-xs text-slate-400">Admin Panel</p>
-            </div>
-          )}
-        </div>
-
+    <Sidebar collapsible="icon" className="border-r border-sidebar-border bg-sidebar">
+      <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel className="text-slate-400 uppercase text-xs font-semibold">
-            {!collapsed && 'Hoofdmenu'}
+          <SidebarGroupLabel className="text-sidebar-foreground/70">
+            {!isCollapsed && "Arnotjuh.be Admin"}
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            {renderMenuItems(mainItems)}
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-slate-400 uppercase text-xs font-semibold">
-            {!collapsed && 'Monitoring'}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            {renderMenuItems(monitoringItems)}
-          </SidebarGroupContent>
-        </SidebarGroup>
-
-        <SidebarGroup>
-          <SidebarGroupLabel className="text-slate-400 uppercase text-xs font-semibold">
-            {!collapsed && 'Systeem'}
-          </SidebarGroupLabel>
-          <SidebarGroupContent>
-            {renderMenuItems(systemItems)}
+            <SidebarMenu>
+              {navigation.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <NavLink 
+                      to={item.url} 
+                      className={getNavClasses(isActive(item.url))}
+                      title={item.title}
+                    >
+                      <item.icon className="h-4 w-4 flex-shrink-0" />
+                      {!isCollapsed && <span>{item.title}</span>}
+                    </NavLink>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>

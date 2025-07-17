@@ -9,6 +9,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import Tickets from "./pages/Tickets";
 import Users from "./pages/Users";
 import NotFound from "./pages/NotFound";
+import Portfolio from "./pages/Portfolio";
 
 const queryClient = new QueryClient();
 
@@ -19,11 +20,15 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AdminLayout />}>
+          {/* Main portfolio website */}
+          <Route path="/" element={<Portfolio />} />
+          
+          {/* Admin panel routes */}
+          <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminDashboard />} />
             <Route path="tickets" element={<Tickets />} />
             <Route path="users" element={<Users />} />
-            {/* Placeholder routes for other pages */}
+            {/* Placeholder routes for other admin pages */}
             <Route path="projects" element={<div className="text-white">Projects - Coming Soon</div>} />
             <Route path="chat" element={<div className="text-white">Chat & Support - Coming Soon</div>} />
             <Route path="stats" element={<div className="text-white">Statistieken - Coming Soon</div>} />
@@ -32,6 +37,7 @@ const App = () => (
             <Route path="notifications" element={<div className="text-white">Meldingen - Coming Soon</div>} />
             <Route path="settings" element={<div className="text-white">Instellingen - Coming Soon</div>} />
           </Route>
+          
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
