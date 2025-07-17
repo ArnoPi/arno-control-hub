@@ -8,6 +8,13 @@ import { AdminLayout } from "@/components/AdminLayout";
 import AdminDashboard from "./pages/AdminDashboard";
 import Tickets from "./pages/Tickets";
 import Users from "./pages/Users";
+import Projects from "./pages/Projects";
+import Chat from "./pages/Chat";
+import Stats from "./pages/Stats";
+import ServerStatus from "./pages/ServerStatus";
+import Logs from "./pages/Logs";
+import Notifications from "./pages/Notifications";
+import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import Portfolio from "./pages/Portfolio";
 
@@ -28,14 +35,13 @@ const App = () => (
             <Route index element={<AdminDashboard />} />
             <Route path="tickets" element={<Tickets />} />
             <Route path="users" element={<Users />} />
-            {/* Placeholder routes for other admin pages */}
-            <Route path="projects" element={<div className="text-white">Projects - Coming Soon</div>} />
-            <Route path="chat" element={<div className="text-white">Chat & Support - Coming Soon</div>} />
-            <Route path="stats" element={<div className="text-white">Statistieken - Coming Soon</div>} />
-            <Route path="status" element={<div className="text-white">Server Status - Coming Soon</div>} />
-            <Route path="logs" element={<div className="text-white">Logs - Coming Soon</div>} />
-            <Route path="notifications" element={<div className="text-white">Meldingen - Coming Soon</div>} />
-            <Route path="settings" element={<div className="text-white">Instellingen - Coming Soon</div>} />
+            <Route path="projects" element={<Projects />} />
+            <Route path="chat" element={<Chat />} />
+            <Route path="stats" element={<Stats />} />
+            <Route path="status" element={<ServerStatus />} />
+            <Route path="logs" element={<Logs />} />
+            <Route path="notifications" element={<Notifications />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
           
           <Route path="*" element={<NotFound />} />
