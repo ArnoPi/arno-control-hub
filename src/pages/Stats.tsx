@@ -9,6 +9,7 @@ import {
   BarChart,
   Bar,
   PieChart as RechartsPieChart,
+  Pie,
   Cell,
   XAxis,
   YAxis,
@@ -165,7 +166,7 @@ const Stats = () => {
           <CardContent>
             <ResponsiveContainer width="100%" height={300}>
               <RechartsPieChart>
-                <RechartsPieChart.Pie
+                <Pie
                   data={projectTypeData}
                   cx="50%"
                   cy="50%"
@@ -176,7 +177,7 @@ const Stats = () => {
                   {projectTypeData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
-                </RechartsPieChart.Pie>
+                </Pie>
                 <Tooltip 
                   contentStyle={{ 
                     backgroundColor: '#1E293B', 
